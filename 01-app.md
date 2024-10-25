@@ -64,6 +64,21 @@ $ rackup app.ru
 
 ブラウザやcurlコマンド等で `http://localhost:9292` にアクセスして、`hello` と表示されれば成功です。
 
+これなんで puma が起動するんだ？
+
+```shell
+% rackup src/app.ru 
+Puma starting in single mode...
+* Puma version: 6.4.3 (ruby 3.3.0-p0) ("The Eagle of Durango")
+*  Min threads: 0
+*  Max threads: 5
+*  Environment: development
+*          PID: 74841
+* Listening on http://127.0.0.1:9292
+* Listening on http://[::1]:9292
+Use Ctrl-C to stop
+```
+
 ---
 
 ## 3. envの中身を確認してみる
