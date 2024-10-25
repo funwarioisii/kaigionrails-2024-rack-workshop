@@ -1,23 +1,22 @@
+# frozen_string_literal: true
+
+require 'rack/request'
+require 'rack/response'
+
 class App
   def call(env)
-    method = env["REQUEST_METHOD"]
-    path = env["PATH_INFO"]
+    request = Rack::Request.new(env)
+    case [request.request_method, request.path_info]
+    in ['GET', '/']
+      Rack::Response.new('It works!', 200).finish
+    in 'GET', *rest
+      raise unless rest.starts_with? '/hello'
 
-    if path == '/'
-      return [
-        200,
-        {},
-        ["It works"],
-      ]
+      slug = rest.first.split('/hello/').last
+      Rack::Response.new("Hello #{slug}", 200).finish
     end
-
-    slug = path.split('/hello/').last
-    return [
-      200,
-      {},
-      ["Hello #{slug}"]
-    ]
-
+  rescue StandardError
+    Rack::Response.new('Not Found', 404).finish
   end
 end
 
